@@ -1,0 +1,33 @@
+package com.bolsadeideas.springboot.app.models.service;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
+
+public class UploadFileServiceImpl implements IUploadFileService{
+	private final Logger log =  LoggerFactory.getLogger(getClass());
+	private final static String UPLOADS_FOLDER = "uploads";
+	Path pathFoto = Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
+	@Override
+	public Resource load(String filename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String copy(MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(String filename) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
