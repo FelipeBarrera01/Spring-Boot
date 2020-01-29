@@ -80,7 +80,7 @@ return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_D
 		return "ver";
 	}
 	
-	@RequestMapping(value="/listar",method = RequestMethod.GET)
+	@RequestMapping(value= {"/listar", "/"},method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page",defaultValue = "0") int page, Model model) {
 		Pageable pagerequest = PageRequest.of(page, 5);
 		
