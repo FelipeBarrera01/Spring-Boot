@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -41,7 +42,7 @@ import com.bolsadeideas.springboot.app.models.service.IClienteService;
 import com.bolsadeideas.springboot.app.models.service.IUploadFileService;
 import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 
-import sun.security.provider.PolicyParser.GrantEntry;
+
 
 @Controller
 @SessionAttributes("cliente")
@@ -54,7 +55,7 @@ public class ClienteController {
 	private IUploadFileService uploadFileService;
 	
 	
-	
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename){
 		Resource resource = null;
@@ -69,7 +70,7 @@ return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_D
 		.body(resource);
 	}
 	
-	
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		
@@ -103,6 +104,8 @@ return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_D
 		return "listar";
 	}
 	
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/form")
 	public String crear(Map<String, Object> model) {
 		Cliente cliente = new Cliente();
@@ -144,7 +147,7 @@ return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_D
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:listar";
 	}
-
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/form/{id}")
 	public String editar(@PathVariable(value = "id") Long id,Map<String, Object> model, RedirectAttributes flash) {
 		
@@ -166,6 +169,7 @@ return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_D
 		
 		return "form";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/eiminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		if(id > 0) {
